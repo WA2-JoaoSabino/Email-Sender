@@ -15,7 +15,7 @@ from pandas import DataFrame
 
 class MainWindow(QMainWindow):
 #   Dados
-    planilha: DataFrame = None
+    planilha: DataFrame = pd.DataFrame
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -60,15 +60,15 @@ class MainWindow(QMainWindow):
                 )
                 return
 
-#            if self.planilha != None:
-#                resposta = QMessageBox.question(
-#                    self,
-#                    "Aviso!",
-#                    f"Já existe uma planilha ({self.planilha}) aberta. Deseja fechá-la e abrir a planilha {caminho_arquivo}",
-#                    QMessageBox.Yes | QMessageBox.No
-#                )
-#                if resposta == QMessageBox.No:
-#                    return
+            if not(self.planilha.empty):
+                resposta = QMessageBox.question(
+                    self,
+                    "Aviso!",
+                    f"Já existe uma planilha aberta. Deseja fechá-la e abrir a planilha em {caminho_arquivo[0]}",
+                    QMessageBox.Yes | QMessageBox.No
+                )
+                if resposta == QMessageBox.No:
+                    return
 
             QMessageBox.information(
                 self,
