@@ -11,8 +11,12 @@ from ui_form import Ui_MainWindow
 # import qdarkstyle
 from qt_material import apply_stylesheet
 import pandas as pd
+from pandas import DataFrame
 
 class MainWindow(QMainWindow):
+#   Dados
+    planilha: DataFrame = None
+
     def __init__(self, parent=None):
         super().__init__(parent)
         self.ui = Ui_MainWindow()
@@ -48,13 +52,23 @@ class MainWindow(QMainWindow):
                 self, 'Selecione a planilha bacana com os CNPJs', ''
             )
 
-            if len(caminho_arquivo) == 0:
+            if len(caminho_arquivo[0]) == 0:
                 QMessageBox.information(
                     self,
                     "Erro!",
                     "Nenhum arquivo foi selecionado"
                 )
                 return
+
+#            if self.planilha != None:
+#                resposta = QMessageBox.question(
+#                    self,
+#                    "Aviso!",
+#                    f"Já existe uma planilha ({self.planilha}) aberta. Deseja fechá-la e abrir a planilha {caminho_arquivo}",
+#                    QMessageBox.Yes | QMessageBox.No
+#                )
+#                if resposta == QMessageBox.No:
+#                    return
 
             QMessageBox.information(
                 self,
@@ -70,9 +84,10 @@ class MainWindow(QMainWindow):
                 f"Quantidade de CNPJs: {len(df_cnpjs)}"
             )
 
+            self.planilha = df_cnpjs
             return df_cnpjs
         except Exception as e:
-            print(f"Erro ao selecionar planilha: {e}")
+            print(f"Erro ao selecionar planilha: \033[31m{e}\033[0m")
 
     def atualizar_dataframe(self):
         try:
