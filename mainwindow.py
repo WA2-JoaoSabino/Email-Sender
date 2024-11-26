@@ -38,13 +38,13 @@ class MainWindow(QMainWindow):
                 self.ui.inputText.setPlainText("Insira seu texto aqui")
 
         except Exception as e:
-            print(f"Erro ao resetar o texto: {e}")
+            self.printError("Erro ao resetar o texto", e)
 
     def enviar_emails(self):
         try:
             ...
         except Exception as e:
-            print(f"Não foi possível enviar os emails: {e}")
+            self.printError("Não foi possível enviar os emails.", e)
 
     def selecionar_planilha(self):
         try:
@@ -87,19 +87,24 @@ class MainWindow(QMainWindow):
             self.planilha = df_cnpjs
             return df_cnpjs
         except Exception as e:
-            print(f"Erro ao selecionar planilha: \033[31m{e}\033[0m")
+            self.printError("Erro ao selecionar a planilha.", e)
 
     def atualizar_dataframe(self):
         try:
             print("Ainda não implementado!")
         except Exception as e:
-            print(f"Erro ao atualizar os dados no dataframe: {e}")
+            self.printError("Erro ao atualizar os dados no dataframe.", e)
 
     def atualizar_lista(self):
         try:
             print("Ainda não implementado!")
         except Exception as e:
-            print(f"Erro ao atualizar a lista de empresas: {e}")
+            self.printError("Erro ao atualizar a lista de empresas.", e)
+
+#   Mostra mensagens de erro no console de forma formatada. Auxilia a analisar mensagens de erro.
+#   Uso: self.printError("mensagem", exception)
+    def printError(self, message: str, error: Exception):
+        print(f"\033[33m{message}\nMotivo: \033[31m{error}\033[0m")
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
