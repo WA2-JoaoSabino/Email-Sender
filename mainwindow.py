@@ -2,6 +2,8 @@
 import sys
 
 from PySide6.QtWidgets import QApplication, QMainWindow, QFileDialog, QMessageBox
+from PySide6.QtGui import QStandardItemModel, QStandardItem
+from PySide6.QtCore import Qt
 
 # Important:
 # You need to run the following command to generate the ui_form.py file
@@ -16,6 +18,11 @@ from pandas import DataFrame
 class MainWindow(QMainWindow):
 #   Dados
     planilha: DataFrame = pd.DataFrame
+    teste = [
+        (False, "Nome 1", None, 25),
+        (True, None, "Dado 2", 345),
+        (False, "Nome 3", "Dado 3", None)
+    ]
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -23,6 +30,10 @@ class MainWindow(QMainWindow):
         self.ui.setupUi(self)
         self.ui.buttonSendEmail.clicked.connect(self.enviar_emails)
         self.ui.buttonSelectFile.clicked.connect(self.selecionar_planilha)
+
+        self.ui.treeView.setItemsExpandable(False)
+
+        self.atualizar_lista()
 
 
     def resetar_email(self):
@@ -84,6 +95,8 @@ class MainWindow(QMainWindow):
                 f"Quantidade de CNPJs: {len(df_cnpjs)}"
             )
 
+            self.atualizar_lista()
+
             self.planilha = df_cnpjs
             return df_cnpjs
         except Exception as e:
@@ -97,6 +110,36 @@ class MainWindow(QMainWindow):
 
     def atualizar_lista(self):
         try:
+            model = QStandardItemModel()
+            dados = self.teste
+
+            headerCheck = QStandardItem()
+            headerCheck.setCheckable(True)
+            model.setHorizontalHeaderLabels(["", "Nome da empresa", "CNPJ", "e-mail"])
+            model.setHorizontalHeaderItem(0, headerCheck)
+
+            for i in dados:
+                col1 = QStandardItem()
+                col1.setCheckable(True)
+                col1.setCheckState(Qt.CheckState(2 if bool(i[0]) else 0))
+                col1.setEditable(False)
+                col2 = QStandardItem(str(i[1]))
+                col2.setEditable(False)
+                col3 = QStandardItem(str(i[2]))
+                col3.setEditable(False)
+                col4 = QStandardItem(str(i[3]))
+                col4.setEditable(False)
+
+                model.appendRow([col1, col2, col3, col4])
+            
+            self.ui.treeView.setModel(model)
+            self.ui.treeView.setColumnWidth(0, 40)
+            self.ui.treeView.setColumnWidth(1, 200)
+            self.ui.treeView.setColumnWidth(2, 100)
+            self.ui.treeView.setColumnWidth(3, 200)
+            # Implementar função de alterar a checkbox quando a linha for clicada
+            # self.ui.treeView.clicked.connect()
+
             print("Ainda não implementado!")
         except Exception as e:
             self.printError("Erro ao atualizar a lista de empresas.", e)
