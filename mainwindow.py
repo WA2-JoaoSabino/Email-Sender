@@ -154,5 +154,6 @@ if __name__ == "__main__":
 #    apply_stylesheet(app, theme='dark_teal.xml')
     widget = MainWindow()
     widget.show()
+    QMessageBox.information(widget, "Teste", "Mensagem de teste, alterando o código para testar o GitHub.")
     sys.exit(app.exec())
 
