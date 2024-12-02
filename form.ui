@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>696</width>
-    <height>471</height>
+    <width>800</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -49,7 +49,7 @@
         <widget class="QFrame" name="frame">
          <property name="maximumSize">
           <size>
-           <width>16777215</width>
+           <width>900</width>
            <height>16777215</height>
           </size>
          </property>
@@ -79,21 +79,21 @@
             </property>
             <layout class="QHBoxLayout" name="horizontalLayout">
              <property name="leftMargin">
-              <number>0</number>
+              <number>6</number>
              </property>
              <property name="topMargin">
-              <number>0</number>
+              <number>6</number>
              </property>
              <property name="rightMargin">
-              <number>0</number>
+              <number>6</number>
              </property>
              <property name="bottomMargin">
-              <number>0</number>
+              <number>6</number>
              </property>
              <item>
-              <widget class="QPushButton" name="buttonSelectFile">
+              <widget class="QPushButton" name="botaoAbrir">
                <property name="text">
-                <string>Selecionar arquivo</string>
+                <string>Abrir Planilha</string>
                </property>
               </widget>
              </item>
@@ -110,81 +110,70 @@
                </property>
               </spacer>
              </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QFrame" name="frame_4">
+            <property name="frameShape">
+             <enum>QFrame::Shape::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Shadow::Raised</enum>
+            </property>
+            <layout class="QHBoxLayout" name="horizontalLayout_3">
              <item>
-              <widget class="QPushButton" name="buttonSelectAll">
+              <widget class="QLabel" name="totalCNPJs">
                <property name="text">
-                <string>Selecionar tudo</string>
+                <string>Total CNPJs: </string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="buttonFilter">
-               <property name="text">
-                <string>Filtros</string>
-               </property>
-              </widget>
+              <widget class="QComboBox" name="filtroPorte"/>
+             </item>
+             <item>
+              <widget class="QComboBox" name="filtroNatJuridica"/>
+             </item>
+             <item>
+              <widget class="QComboBox" name="filtroCNAE"/>
              </item>
             </layout>
            </widget>
           </item>
           <item>
-           <widget class="QTreeView" name="treeView">
-            <property name="maximumSize">
-             <size>
-              <width>16777215</width>
-              <height>16777215</height>
-             </size>
+           <widget class="QFrame" name="frame_5">
+            <property name="frameShape">
+             <enum>QFrame::Shape::StyledPanel</enum>
             </property>
-            <property name="itemsExpandable">
-             <bool>false</bool>
+            <property name="frameShadow">
+             <enum>QFrame::Shadow::Raised</enum>
             </property>
-            <property name="allColumnsShowFocus">
-             <bool>true</bool>
-            </property>
-            <property name="expandsOnDoubleClick">
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item>
-        <widget class="QFrame" name="frame_4">
-         <property name="frameShape">
-          <enum>QFrame::Shape::StyledPanel</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Shadow::Raised</enum>
-         </property>
-         <layout class="QVBoxLayout" name="verticalLayout_2">
-          <item>
-           <widget class="QPlainTextEdit" name="inputText">
-            <property name="maximumSize">
-             <size>
-              <width>16777215</width>
-              <height>16777215</height>
-             </size>
-            </property>
-            <property name="readOnly">
-             <bool>false</bool>
-            </property>
-            <property name="plainText">
-             <string>Escreva seu texto</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="buttonSendEmail">
-            <property name="maximumSize">
-             <size>
-              <width>16777215</width>
-              <height>16777215</height>
-             </size>
-            </property>
-            <property name="text">
-             <string>Enviar e-mails</string>
-            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_2">
+             <item>
+              <widget class="QTextEdit" name="editorTexto">
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="botaoEnviar">
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>Enviar e-mails</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </widget>
           </item>
          </layout>
@@ -195,35 +184,7 @@
     </item>
    </layout>
   </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>696</width>
-     <height>21</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
- <connections>
-  <connection>
-   <sender>buttonSendEmail</sender>
-   <signal>clicked()</signal>
-   <receiver>inputText</receiver>
-   <slot>show()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>249</x>
-     <y>160</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>249</x>
-     <y>303</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>
