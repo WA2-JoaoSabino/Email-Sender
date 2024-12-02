@@ -11,7 +11,7 @@ from PySide6.QtCore import Qt
 #     pyside2-uic form.ui -o ui_form.py
 from ui_form import Ui_MainWindow
 # import qdarkstyle
-from qt_material import apply_stylesheet
+import qdarktheme
 import pandas as pd
 from pandas import DataFrame
 
@@ -28,12 +28,8 @@ class MainWindow(QMainWindow):
         super().__init__(parent)
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-        self.ui.buttonSendEmail.clicked.connect(self.enviar_emails)
-        self.ui.buttonSelectFile.clicked.connect(self.selecionar_planilha)
-
-        self.ui.treeView.setItemsExpandable(False)
-
-        self.atualizar_lista()
+        self.ui.botaoEnviar.clicked.connect(self.enviar_emails)
+        self.ui.botaoAbrir.clicked.connect(self.selecionar_planilha)
 
 
     def resetar_email(self):
@@ -108,42 +104,6 @@ class MainWindow(QMainWindow):
         except Exception as e:
             self.printError("Erro ao atualizar os dados no dataframe.", e)
 
-    def atualizar_lista(self):
-        try:
-            model = QStandardItemModel()
-            dados = self.teste
-
-            headerCheck = QStandardItem()
-            headerCheck.setCheckable(True)
-            model.setHorizontalHeaderLabels(["", "Nome da empresa", "CNPJ", "e-mail"])
-            model.setHorizontalHeaderItem(0, headerCheck)
-
-            for i in dados:
-                col1 = QStandardItem()
-                col1.setCheckable(True)
-                col1.setCheckState(Qt.CheckState(2 if bool(i[0]) else 0))
-                col1.setEditable(False)
-                col2 = QStandardItem(str(i[1]))
-                col2.setEditable(False)
-                col3 = QStandardItem(str(i[2]))
-                col3.setEditable(False)
-                col4 = QStandardItem(str(i[3]))
-                col4.setEditable(False)
-
-                model.appendRow([col1, col2, col3, col4])
-            
-            self.ui.treeView.setModel(model)
-            self.ui.treeView.setColumnWidth(0, 40)
-            self.ui.treeView.setColumnWidth(1, 200)
-            self.ui.treeView.setColumnWidth(2, 100)
-            self.ui.treeView.setColumnWidth(3, 200)
-            # Implementar função de alterar a checkbox quando a linha for clicada
-            # self.ui.treeView.clicked.connect()
-
-            print("Ainda não implementado!")
-        except Exception as e:
-            self.printError("Erro ao atualizar a lista de empresas.", e)
-
 #   Mostra mensagens de erro no console de forma formatada. Auxilia a analisar mensagens de erro.
 #   Uso: self.printError("mensagem", exception)
     def printError(self, message: str, error: Exception):
@@ -151,7 +111,6 @@ class MainWindow(QMainWindow):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-#    apply_stylesheet(app, theme='dark_teal.xml')
     widget = MainWindow()
     widget.show()
     sys.exit(app.exec())
